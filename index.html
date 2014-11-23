@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<title>Yantema</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
+		<link href="bower_components/jt.timepicker/jquery.timepicker.css" rel="stylesheet" media="screen">
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<link href="css/common.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="container">
+			<div id="reports">
+				<div class="alert alert-info" role="alert"><b>Время не отмечено!</b> Укажите, чем вы занимались сегодня.</div>
+				<form class="add" method="post" action="ajax/add-report.php">
+					<div class="form-group">
+						<label class="control-label">Процесс:</label>
+						<input type="text" class="form-control" name="text">
+					</div>
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label class="control-label">Время:</label>
+							<div class="input-group time-select">
+								<div class="input-group-addon">с</div>
+								<input type="text" class="form-control time start" name="since">
+								<div class="input-group-addon">до</div>
+								<input type="text" class="form-control time end" name="till">
+							</div>
+						</div>
+						<div class="form-group col-md-6">
+							<label class="control-label">Задача:</label>
+							<select class="form-control" name="task"><option selected>Не указано</option></select>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary pull-right">Отметить время</button>
+					<div class="clearfix"></div>
+				</form>
+			</div>
+		</div>
+
+		<footer>
+			<div class="progress progress-striped">
+				<div class="progress-bar" style="width: 20%;"></div>
+			</div>
+			<span class="date">Воскресенье, 23 ноября 2014</span>
+		</footer>
+
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="bower_components/jt.timepicker/jquery.timepicker.min.js"></script>
+		<script src="bower_components/datepair.js/dist/jquery.datepair.min.js"></script>
+		<script src="js/main.js"></script>
+	</body>
+</html>
