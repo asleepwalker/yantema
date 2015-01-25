@@ -4,12 +4,12 @@ $(function() {
 
 	var cal = new CalHeatMap();
 	cal.init({
-		itemSelector: '#matrix',
+		itemSelector: '#reports .matrix',
 		domain: 'week',
 		subDomain: 'day',
-		data: 'matrix.php',
+		//data: 'matrix.php',
 		start: (new Date()).setFullYear((new Date()).getFullYear()-1),
-		cellSize: 12,
+		cellSize: 13,
 		domainGutter: 0,
 		highlight: 'now',
 		range: 53,
@@ -19,7 +19,6 @@ $(function() {
 		},
 		domainLabelFormat: function(date) {
 			return '';
-			//return moment(date).format('MMMM');
 		},
 		legendTitleFormat: {
 			lower: 'КПД ниже {min} %',

@@ -17,8 +17,8 @@
 	</head>
 	<body>
 		<div class="container">
-			<div id="matrix"></div>
-			<div id="reports">
+			<div id="reports" class="col-sm-9">
+				<div class="matrix hidden-xs hidden-sm hidden-md"></div>
 				<div class="alert alert-info" role="alert"><b>Время не отмечено!</b> Укажите, чем вы занимались сегодня.</div>
 				<form class="add" method="post" action="ajax/add-report.php">
 					<div class="form-group">
@@ -43,6 +43,10 @@
 					<button type="submit" class="btn btn-primary pull-right">Отметить время</button>
 					<div class="clearfix"></div>
 				</form>
+			</div>
+			<div id="tasks" class="col-sm-3 hidden-xs">
+				<h2>Задачи</h2>
+				<div class="checkbox"><label><input type="checkbox"> Сделать Yantema</label></div>
 			</div>
 		</div>
 

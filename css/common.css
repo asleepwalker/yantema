@@ -11,18 +11,23 @@ HTML {
 BODY {
 	/* Margin bottom by footer height */
 	margin-bottom: 30px;
+	padding-top: 40px;
 }
 
-#matrix {
-	margin-top: 40px;
-}
-#reports {
-	max-width: 70%;
-	margin: 60px auto 0 0;
+#reports .matrix {
+	margin-bottom: 60px;
 }
 #reports FORM.add {
 	background: #f8f8f8;
 	padding: 15px 20px;
+}
+
+#tasks {
+	background: #f8f8f8;
+}
+#tasks H2 {
+	font-size: 20px;
+	margin: 10px 0 15px;
 }
 
 FOOTER {
