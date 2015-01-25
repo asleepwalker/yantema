@@ -16,11 +16,28 @@
 		<link href="css/common.css" rel="stylesheet">
 	</head>
 	<body>
+		<button class="prev-day glyphicon glyphicon-menu-left hidden-xs"></button>
+		<button class="next-day glyphicon glyphicon-menu-right hidden-xs"></button>
 		<div class="container">
-			<div id="reports" class="col-sm-9">
-				<div class="matrix hidden-xs hidden-sm hidden-md"></div>
-				<div class="alert alert-info" role="alert"><b>Время не отмечено!</b> Укажите, чем вы занимались сегодня.</div>
-				<form class="add" method="post" action="ajax/add-report.php">
+			<h1>Воскресенье, 25 января 2015</h1>
+			<div class="progress progress-striped">
+				<div class="progress-bar" style="width: 20%;"></div>
+			</div>
+
+			<div class="reports col-sm-9">
+				<!--<div class="matrix hidden-xs hidden-sm hidden-md"></div>-->
+				<!--<div class="alert alert-info" role="alert"><b>Время не отмечено!</b> Укажите, чем вы занимались сегодня.</div>-->
+				<div class="item useful">
+					<p class="time"><span class="glyphicon glyphicon-time"></span> <span class="interval">22:30 — 23:50</span> (<span class="total">1 ч 20 м</span>)</p>
+					<p class="text">Пытался склепать дизайн Yantema</p>
+					<p class="task">Задача: <span class="name">Yantema</span></p>
+				</div>
+				<div class="item">
+					<p class="time"><span class="glyphicon glyphicon-time"></span> <span class="interval">23:50 — 24:00</span> (<span class="total">10 м</span>)</p>
+					<p class="text">Пытался добежать домой до закрытия метро</p>
+				</div>
+
+				<form class="add-report" method="post" action="ajax/add-report.php">
 					<div class="form-group">
 						<label class="control-label">Процесс:</label>
 						<input type="text" class="form-control" name="text">
@@ -44,18 +61,19 @@
 					<div class="clearfix"></div>
 				</form>
 			</div>
-			<div id="tasks" class="col-sm-3 hidden-xs">
+
+			<div class="tasks col-sm-3 hidden-xs">
 				<h2>Задачи</h2>
 				<div class="checkbox"><label><input type="checkbox"> Сделать Yantema</label></div>
 			</div>
 		</div>
 
-		<footer>
+		<!--<footer>
 			<div class="progress progress-striped">
 				<div class="progress-bar" style="width: 20%;"></div>
 			</div>
 			<span class="date">Воскресенье, 23 ноября 2014</span>
-		</footer>
+		</footer>-->
 
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

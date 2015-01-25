@@ -11,23 +11,67 @@ HTML {
 BODY {
 	/* Margin bottom by footer height */
 	margin-bottom: 30px;
-	padding-top: 40px;
+	padding-top: 20px;
 }
 
-#reports .matrix {
-	margin-bottom: 60px;
+.reports {
+	padding-left: 0;
 }
-#reports FORM.add {
+.reports .item {
+	padding: 20px;
+	margin: 20px 0;
+	border: 1px solid #eee;
+	border-left-width: 5px;
+	border-radius: 3px;
+}
+.reports .item.useful {
+	border-left-color: #1b809e;
+}
+.reports .item:first-child {
+	margin-top: 0;
+}
+.reports .item .time .total {
+	color: #666;
+}
+.reports .item .task {
+	font-size: 12px;
+	margin: 20px 0 5px;
+}
+.reports .item .time .interval,
+.reports .item .task .name {
+	font-weight: bold;
+}
+.add-report {
 	background: #f8f8f8;
 	padding: 15px 20px;
 }
 
-#tasks {
+.tasks {
 	background: #f8f8f8;
 }
-#tasks H2 {
+.tasks H2 {
 	font-size: 20px;
 	margin: 10px 0 15px;
+}
+
+.prev-day, .next-day {
+	background: transparent;
+	color: #204C59;
+	font-size: 40px;
+	height: 40px;
+	margin-top: -20px;
+	position: fixed;
+	top: 50%;
+	width: 40px;
+}
+.prev-day:hover, .next-day:hover {
+	color: #3D8FA7;
+}
+.prev-day {
+	left: 20px;
+}
+.next-day {
+	right: 20px;
 }
 
 FOOTER {
@@ -40,20 +84,15 @@ FOOTER {
 	text-align: center;
 	width: 100%;
 }
-FOOTER > .progress {
-	border-radius: 0;
-	height: 30px;
-	left: 0;
-	margin-bottom: 0;
-	position: absolute;
-	right: 0;
-	z-index: 1;
-}
-FOOTER > .progress > .bar {
-	height: 30px;
-}
-FOOTER > .date {
-	color: black;
-	position: relative;
-	z-index: 2;
+
+@media screen and (max-width: 768px) {
+	BODY {
+		padding-top: 5px;
+	}
+	H1 {
+		font-size: 24px;
+	}
+	.reports {
+		padding-right: 0;
+	}
 }
