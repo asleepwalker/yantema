@@ -1,0 +1,36 @@
+{
+  "name": "Yantema",
+  "version": "0.0.1",
+  "description": "Yet another time manager",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/asleepwalker/yantema.git"
+  },
+  "keywords": [
+    "yantema",
+    "time",
+    "manager"
+  ],
+  "author": "Sleepwalker <mail@asleepwalker.ru> (http://me.asleepwalker.ru/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/asleepwalker/yantema/issues"
+  },
+  "dependencies": {
+    "express": "~4.11.1",
+    "mongoose": "~3.8.22",
+    "body-parser": "~1.10.2",
+    "cookie-parser": "~1.3.3",
+    "serve-favicon": "~2.2.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-copy": "~0.7.0",
+    "grunt-contrib-concat": "~0.5.0",
+    "grunt-contrib-jshint": "~0.11.0",
+    "grunt-jscs": "~1.2.0",
+    "grunt-sass": "~0.17.0",
+    "grunt-ssh": "~0.12.0"
+  }
+}
