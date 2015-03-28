@@ -17,6 +17,10 @@
   "bugs": {
     "url": "https://github.com/asleepwalker/yantema/issues"
   },
+  "scripts": {
+    "start": "node bin/server.js",
+    "test": "mocha tests/"
+  },
   "dependencies": {
     "express": "~4.11.1",
     "mongoose": "~3.8.22",
@@ -31,6 +35,8 @@
     "grunt-contrib-jshint": "~0.11.0",
     "grunt-jscs": "~1.2.0",
     "grunt-sass": "~0.17.0",
-    "grunt-ssh": "~0.12.0"
+    "grunt-ssh": "~0.12.0",
+    "mocha": "~2.2.1",
+    "grunt-mocha-test": "~0.12.7"
   }
 }
