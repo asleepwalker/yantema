@@ -10,16 +10,16 @@ module.exports = function(grunt) {
 				cwd: 'bower_components/',
 				src: '**/*',
 				dest: 'public/assets/'
-			},
+			}
 		},
 		jshint: {
-			files: ['Gruntfile.js', '{bin,public,tests}/**/*.js'],
+			files: ['Gruntfile.js', '{bin,public,tests}/**/*.js', '!public/assets/**/*.js'],
 			options: {
 				jshintrc: 'build/.jshintrc'
 			}
 		},
 		jscs: {
-				src: ['Gruntfile.js', '{bin,public,tests}/**/*.js'],
+				src: ['Gruntfile.js', '{bin,public,tests}/**/*.js', '!public/assets/**/*.js'],
 				options: {
 					config: 'build/.jscsrc'
 				}
