@@ -19,6 +19,7 @@
   },
   "scripts": {
     "start": "node bin/server.js",
+    "deploy": "grunt deploy",
     "test": "mocha tests/"
   },
   "dependencies": {

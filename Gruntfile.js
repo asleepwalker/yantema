@@ -2,24 +2,32 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		clean: {
-			assets: 'public/assets/**/*'
+			dist: 'dist/**/*'
 		},
 		copy: {
+			app: {
+				src: ['{bin,models,routes,views}/**/*', 'app.js', 'package.json'],
+				dest: 'dist/'
+			},
 			assets: {
 				expand: true,
 				cwd: 'bower_components/',
 				src: '**/*',
-				dest: 'public/assets/'
+				dest: 'dist/public/assets/'
+			},
+			public: {
+				src: 'public/**/*',
+				dest: 'dist/'
 			}
 		},
 		jshint: {
-			files: ['Gruntfile.js', '{bin,public,tests}/**/*.js', '!public/assets/**/*.js'],
+			files: ['**/*.js', '!{bower_components,node_modules,dist}/**/*.js'],
 			options: {
 				jshintrc: 'build/.jshintrc'
 			}
 		},
 		jscs: {
-				src: ['Gruntfile.js', '{bin,public,tests}/**/*.js', '!public/assets/**/*.js'],
+				src: ['**/*.js', '!{bower_components,node_modules,dist}/**/*.js'],
 				options: {
 					config: 'build/.jscsrc'
 				}
@@ -32,7 +40,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-jscs');
 
 	grunt.registerTask('lint', ['jshint', 'jscs']);
-	grunt.registerTask('assets', ['clean:assets', 'copy:assets']);
-	grunt.registerTask('default', ['lint', 'assets']);
+	grunt.registerTask('assets', ['copy:assets']);
+	grunt.registerTask('public', ['copy:public', 'assets', 'sprite', 'sass', 'uglify', 'concat']);
+	grunt.registerTask('dist', ['public', 'copy:app']);
+	grunt.registerTask('build', ['lint', 'dist']);
+	grunt.registerTask('test', ['mocha']);
+	grunt.registerTask('deploy', ['sftp']);
+	grunt.registerTask('default', ['build', 'test']);
 
 };
