@@ -41,7 +41,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('lint', ['jshint', 'jscs']);
 	grunt.registerTask('assets', ['copy:assets']);
-	grunt.registerTask('public', ['copy:public', 'assets', 'sprite', 'sass', 'uglify', 'concat']);
+	grunt.registerTask('public', ['copy:public', 'assets']);//, 'sprite', 'sass', 'uglify', 'concat']);
 	grunt.registerTask('dist', ['public', 'copy:app']);
 	grunt.registerTask('build', ['lint', 'dist']);
 	grunt.registerTask('test', ['mocha']);
