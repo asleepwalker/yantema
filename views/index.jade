@@ -1,16 +1,60 @@
 doctype html
-html(lang="en")
-  head
-    title= pageTitle
-    script(type='text/javascript').
-      if (foo) bar(1 + 5)
-  body
-    h1 Jade - node template engine
-    #container.col
-      if youAreUsingJade
-        p You are amazing
-      else
-        p Get on it!
-      p.
-        Jade is a terse and simple templating language with a
-        strong focus on performance and powerful features.
+html(lang="ru")
+	head
+		title="Yantema"
+		meta(charset="utf-8")
+		meta(http-equiv="X-UA-Compatible", content="IE=edge")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		link(rel="stylesheet", media="screen", href="assets/bootstrap/dist/css/bootstrap.min.css")
+		link(rel="stylesheet", media="screen", href="assets/bootstrap/dist/css/bootstrap-theme.min.css")
+		link(rel="stylesheet", media="screen", href="assets/jt.timepicker/jquery.timepicker.css")
+		link(rel="stylesheet", media="screen", href="css/common.css")
+	body
+		button.prev-day.glyphicon.glyphicon-menu-left.hidden-xs
+		button.next-day.glyphicon.glyphicon-menu-right.hidden-xs
+		div.container
+			h1="Воскресенье, 25 января 2015"
+			div.progress.progress-striped
+				div.progress-bar(style="width: 20%;")
+			div.main.col-sm-9
+				div.reports
+					div.alert.alert-info(role="alert")
+						b="Время не отмечено!"
+						=" Укажите, чем вы занимались сегодня."
+					form.add-report(method="post", action="posts")
+						div.form-group
+							label.control-label="Процесс:"
+							input.form-control(type="text", name="text")
+						div.row
+							div.form-group.col-md-6
+								label.control-label="Время:"
+								div.input-group.time-select
+									div.input-group-addon="с"
+									input.form-control.time.start(type="text", name="since")
+									div.input-group-addon="до"
+									input.form-control.time.end(type="text", name="till")
+							div.form-group.col-md-6
+								label.control-label="Задача:"
+								select.form-control(name="task")
+									option(selected)="Не указано"
+						button.btn.btn-primary.pull-right(type="submit")="Отметить время"
+						div.clearfix
+			div.tasks.aside.col-sm-3.hidden-xs
+				h2="Задачи"
+				div.checkbox
+					label
+						input(type="checkbox")
+						=" Сделать Yantema"
+			div.statistic.aside.col-sm-3.hidden-xs
+				h2="Итого"
+				p
+					="Сделать Yantema — "
+					span.time="1 ч 20 м"
+		script(src="assets/jquery/dist/jquery.min.js")
+		script(src="assets/bootstrap/dist/js/bootstrap.min.js")
+		script(src="assets/angular/angular.min.js")
+		script(src="assets/moment/min/moment.min.js")
+		script(src="assets/moment/locale/ru.js")
+		script(src="assets/jt.timepicker/jquery.timepicker.min.js")
+		script(src="assets/datepair.js/dist/jquery.datepair.min.js")
+		script(src="js/main.js")
