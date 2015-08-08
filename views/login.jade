@@ -13,4 +13,6 @@ html(lang="ru")
 		div.container
 			h1="Вход в аккаунт Google"
 			p="Тайм-менеджер Yantema использует Google Календарь для хранения выполненных и планируемых задач. Благодаря этому вы сможете использовать Yantema вместе с любыми другими сервисами, использующими Google Календарь, синхронизировать ваш личный и корпоративный органайзеры или, например, открывать совместный доступ. В то же время, вы сможете отмечать потраченное время через простой органайзер в своём телефоне."
-			a.btn.btn-primary.login(href="about:alala")="Войти в аккаунт Google"
+			a.btn.btn-primary.login(onclick="handleAuthClick(event)")="Войти в аккаунт Google"
+		script(src="js/login.js")
+		script(src="https://apis.google.com/js/client.js")
