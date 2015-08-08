@@ -1,3 +1,32 @@
+var CLIENT_ID = '728048305195-eb68s05cjabi4o0jlda7ve3jlnv3snqd.apps.googleusercontent.com';
+var SCOPES = ['https://www.googleapis.com/auth/calendar'];
+var calendarApiReady = false;
+
+function checkAuth() {
+	gapi.auth.authorize({
+		'client_id': CLIENT_ID,
+		'scope': SCOPES,
+		'immediate': true
+	}, handleAuthResult);
+}
+
+function handleAuthResult(authResult) {
+	if (authResult && !authResult.error) {
+		loadCalendarApi();
+	} else {
+		window.location.href = '/login';
+	}
+}
+
+function loadCalendarApi() {
+	gapi.client.load('calendar', 'v3', bootstrapApp);
+}
+
+// Should be overridden by app initialization method
+function bootstrapApp() {
+	calendarApiReady = true;
+}
+
 $(function() {
 
 	moment.locale('ru');
