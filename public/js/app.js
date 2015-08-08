@@ -2,13 +2,15 @@ var CLIENT_ID = '728048305195-eb68s05cjabi4o0jlda7ve3jlnv3snqd.apps.googleuserco
 var SCOPES = ['https://www.googleapis.com/auth/calendar'];
 var calendarApiReady = false;
 
+//jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 function checkAuth() {
 	gapi.auth.authorize({
-		'client_id': CLIENT_ID,
-		'scope': SCOPES,
-		'immediate': true
+		client_id: CLIENT_ID,
+		scope: SCOPES,
+		immediate: true
 	}, handleAuthResult);
 }
+//jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 
 function handleAuthResult(authResult) {
 	if (authResult && !authResult.error) {
