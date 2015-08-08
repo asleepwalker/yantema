@@ -95,6 +95,10 @@ BODY {
 	right: 20px;
 }
 
+.btn.login {
+	margin-top: 8px;
+}
+
 @media screen and (max-width: 768px) {
 	BODY {
 		padding-top: 5px;
