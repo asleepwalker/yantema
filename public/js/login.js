@@ -16,6 +16,6 @@ function handleAuthResult(authResult) {
 	if (authResult && !authResult.error) {
 		window.location.href = '/';
 	} else {
-		alert('error');
+		$('.login-fail').show();
 	}
 }

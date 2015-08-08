@@ -98,6 +98,10 @@ BODY {
 .btn.login {
 	margin-top: 8px;
 }
+.login-fail {
+	margin-top: 15px;
+	padding: 10px 15px;
+}
 
 @media screen and (max-width: 768px) {
 	BODY {
