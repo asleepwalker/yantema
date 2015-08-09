@@ -33,8 +33,9 @@ app.controller('posts', ['$scope', '$timeout', function($scope, $timeout) {
 
 	$scope.posts = [];
 	$scope.form = {};
+	$scope.dayFullness = 0;
 
-	$scope.load = function(day) {
+	$scope.loadDay = function(day) {
 		$scope.day = day;
 		var tomorrow = moment(day).add(1, 'days');
 
@@ -49,6 +50,7 @@ app.controller('posts', ['$scope', '$timeout', function($scope, $timeout) {
 
 		request.execute(function(response) {
 			$scope.posts = response.items;
+			$scope.dayFullness = getDayFullness();
 			$scope.$apply();
 
 			$timeout(function() {
@@ -80,19 +82,33 @@ app.controller('posts', ['$scope', '$timeout', function($scope, $timeout) {
 		});
 
 		request.execute(function(event) {
-			$scope.load($scope.day);
+			$scope.loadDay($scope.day);
 			$scope.form = {};
 			$scope.$apply();
 		});
 	};
 
-	$scope.duration = function(since, till) {
-		var start = moment(since);
-		var end = moment(till);
-		return moment.duration(end.diff(start)).humanize().replace(/ ([a-zа-я])[a-zа-я]+$/i, ' $1');
+	$scope.displayDuration = function(since, till) {
+		var duration = calculateDuration(since, till);
+		return duration.humanize().replace(/ ([a-zа-я])[a-zа-я]+$/i, ' $1');
 	};
 
-	$scope.load(moment().set('hour', 0).set('minute', 0).set('second', 0));
+	function getDayFullness() {
+		var totalDuration = moment.duration(0);
+		angular.forEach($scope.posts, function(post) {
+			var postDuration = calculateDuration(post.start.dateTime, post.end.dateTime);
+			totalDuration.add(postDuration);
+		});
+		return (totalDuration.asMinutes() / 1440) * 100;
+	};
+
+	function calculateDuration(since, till) {
+		var start = moment(since);
+		var end = moment(till);
+		return moment.duration(end.diff(start));
+	}
+
+	$scope.loadDay(moment().set('hour', 0).set('minute', 0).set('second', 0));
 
 }]);
 
