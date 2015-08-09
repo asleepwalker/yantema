@@ -10,16 +10,22 @@ html(lang="ru")
 		link(rel="stylesheet", media="screen", href="assets/jt.timepicker/jquery.timepicker.css")
 		link(rel="stylesheet", media="screen", href="css/common.css")
 		link(rel="icon", href="favicon.ico")
-	body
-		button.prev-day.glyphicon.glyphicon-menu-left.hidden-xs
-		button.next-day.glyphicon.glyphicon-menu-right.hidden-xs
+	body(ng-controller="posts")
+		button.prev-day.glyphicon.glyphicon-menu-left.hidden-xs(ng-click="load(day.subtract(1, 'days'))")
+		button.next-day.glyphicon.glyphicon-menu-right.hidden-xs(ng-click="load(day.add(1, 'days'))")
 		div.container
-			h1="Воскресенье, 25 января 2015"
+			h1="{{day | moment : 'dddd, D MMMM YYYY' | capitalizeFirstLetter }}"
 			div.progress.progress-striped
 				div.progress-bar(style="width: 20%;")
 			div.main.col-sm-9
 				div.reports
-					div.alert.alert-info(role="alert")
+					div.item(ng-repeat="post in posts")
+						p.time
+							span.glyphicon.glyphicon-time
+							=" "
+							span.interval="{{post.start.dateTime | date : 'H:mm'}} — {{post.end.dateTime | date : 'H:mm'}} ({{duration(post.start.dateTime, post.end.dateTime)}})"
+						p.text="{{post.summary}}"
+					div.alert.alert-info(ng-show="posts.length == 0", ng-cloak, role="alert")
 						b="Время не отмечено!"
 						=" Укажите, чем вы занимались сегодня."
 					form.add-report(method="post", action="posts")
