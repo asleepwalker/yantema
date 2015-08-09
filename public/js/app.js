@@ -56,6 +56,35 @@ app.controller('posts', ['$scope', '$timeout', function($scope, $timeout) {
 		});
 	};
 
+	$scope.addPost = function() {
+		var day = moment($scope.day);
+		var start = $scope.form.since.split(':');
+		var end = $scope.form.till.split(':');
+
+		var event = {
+			'summary': $scope.form.summary,
+			'start': {
+				'dateTime': day.set('hour', start[0]).set('minute', start[1]).format(),
+				'timeZone': 'Europe/Kiev'
+			},
+			'end': {
+				'dateTime': day.set('hour', end[0]).set('minute', end[1]).format(),
+				'timeZone': 'Europe/Kiev'
+			}
+		};
+
+		var request = gapi.client.calendar.events.insert({
+			'calendarId': 'primary',
+			'resource': event
+		});
+
+		request.execute(function(event) {
+			$scope.load($scope.day);
+			$scope.form = {};
+			$scope.$apply();
+		});
+	};
+
 	$scope.duration = function(since, till) {
 		var start = moment(since);
 		var end = moment(till);
