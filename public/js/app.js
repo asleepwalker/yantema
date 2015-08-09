@@ -1,6 +1,6 @@
 var CLIENT_ID = '728048305195-eb68s05cjabi4o0jlda7ve3jlnv3snqd.apps.googleusercontent.com';
 var SCOPES = ['https://www.googleapis.com/auth/calendar'];
-var calendarApiReady = false;
+var app = angular.module('yantema', []);
 
 //jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 function checkAuth() {
@@ -24,10 +24,59 @@ function loadCalendarApi() {
 	gapi.client.load('calendar', 'v3', bootstrapApp);
 }
 
-// Should be overridden by app initialization method
 function bootstrapApp() {
-	calendarApiReady = true;
+	angular.bootstrap(document, ['yantema']);
 }
+
+app.controller('posts', ['$scope', '$timeout', function($scope, $timeout) {
+
+	$scope.posts = [];
+	$scope.form = {};
+
+	$scope.load = function(day) {
+		$scope.day = day;
+		var tomorrow = moment(day).add(1, 'days');
+
+		var request = gapi.client.calendar.events.list({
+			'calendarId': 'primary',
+			'timeMin': day.format(),
+			'timeMax': tomorrow.format(),
+			'showDeleted': false,
+			'singleEvents': true,
+			'orderBy': 'startTime'
+		});
+
+		request.execute(function(response) {
+			$scope.posts = response.items;
+			$scope.$apply();
+
+			$timeout(function() {
+				reportsAutosize(true);
+			});
+		});
+	};
+
+	$scope.duration = function(since, till) {
+		var start = moment(since);
+		var end = moment(till);
+		return moment.duration(end.diff(start)).humanize().replace(/ ([a-zа-я])[a-zа-я]+$/i, ' $1');
+	};
+
+	$scope.load(moment().set('hour', 0).set('minute', 0).set('second', 0));
+
+}]);
+
+app.filter('moment', function() {
+	return function(input, format) {
+		return input.format(format);
+	};
+});
+
+app.filter('capitalizeFirstLetter', function() {
+	return function(input) {
+		return input.charAt(0).toUpperCase() + input.slice(1);
+	};
+});
 
 $(function() {
 
@@ -44,15 +93,14 @@ $(function() {
 	});
 	$('.time-select').datepair();
 
-	function reportsAutosize(scrollBottom) {
+	window.reportsAutosize = function(scrollBottom) {
 		var windowHeight = $(window).height();
 		$('.reports').removeClass('has-scroll').css('max-height', '');
 
 		if (windowHeight > 600) {
 			var reportsOffsetTop = $('.reports').offset().top;
 			var reportsHeight = $('.reports').height();
-			var formHeight = $('.add-report').outerHeight(true);
-			var reportsMaxHeight = windowHeight - reportsOffsetTop + formHeight;
+			var reportsMaxHeight = windowHeight - reportsOffsetTop - 20;
 			$('.reports').css('max-height', reportsMaxHeight + 'px');
 
 			if (reportsMaxHeight < reportsHeight) {
@@ -63,7 +111,7 @@ $(function() {
 				}
 			}
 		}
-	}
+	};
 
 	reportsAutosize(true);
 	$(window).resize(reportsAutosize);
