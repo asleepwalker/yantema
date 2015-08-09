@@ -1,5 +1,5 @@
 var CLIENT_ID = '728048305195-eb68s05cjabi4o0jlda7ve3jlnv3snqd.apps.googleusercontent.com';
-var SCOPES = ['https://www.googleapis.com/auth/calendar'];
+var SCOPES = ['https://www.googleapis.com/auth/calendar', 'https://www.googleapis.com/auth/tasks'];
 
 //jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 function handleAuthClick(event) {
