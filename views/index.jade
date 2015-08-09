@@ -11,19 +11,19 @@ html(lang="ru")
 		link(rel="stylesheet", media="screen", href="css/common.css")
 		link(rel="icon", href="favicon.ico")
 	body(ng-controller="posts")
-		button.prev-day.glyphicon.glyphicon-menu-left.hidden-xs(ng-click="load(day.subtract(1, 'days'))")
-		button.next-day.glyphicon.glyphicon-menu-right.hidden-xs(ng-click="load(day.add(1, 'days'))")
+		button.prev-day.glyphicon.glyphicon-menu-left.hidden-xs(ng-click="loadDay(day.subtract(1, 'days'))")
+		button.next-day.glyphicon.glyphicon-menu-right.hidden-xs(ng-click="loadDay(day.add(1, 'days'))")
 		div.container
 			h1="{{day | moment : 'dddd, D MMMM YYYY' | capitalizeFirstLetter }}"
 			div.progress.progress-striped
-				div.progress-bar(style="width: 20%;")
+				div.progress-bar(style="width: {{dayFullness}}%;")
 			div.main.col-sm-9
 				div.reports
 					div.item(ng-repeat="post in posts")
 						p.time
 							span.glyphicon.glyphicon-time
 							=" "
-							span.interval="{{post.start.dateTime | date : 'H:mm'}} — {{post.end.dateTime | date : 'H:mm'}} ({{duration(post.start.dateTime, post.end.dateTime)}})"
+							span.interval="{{post.start.dateTime | date : 'H:mm'}} — {{post.end.dateTime | date : 'H:mm'}} ({{displayDuration(post.start.dateTime, post.end.dateTime)}})"
 						p.text="{{post.summary}}"
 					div.alert.alert-info(ng-show="posts.length == 0", ng-cloak, role="alert")
 						b="Время не отмечено!"
