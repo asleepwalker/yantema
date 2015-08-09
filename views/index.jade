@@ -28,23 +28,23 @@ html(lang="ru")
 					div.alert.alert-info(ng-show="posts.length == 0", ng-cloak, role="alert")
 						b="Время не отмечено!"
 						=" Укажите, чем вы занимались сегодня."
-					form.add-report(method="post", action="posts")
+					form.add-report(name="addPostForm", ng-submit="addPostForm.$valid")
 						div.form-group
 							label.control-label="Процесс:"
-							input.form-control(type="text", name="text")
+							input.form-control(type="text", name="text", ng-model="form.summary", required)
 						div.row
 							div.form-group.col-md-6
 								label.control-label="Время:"
 								div.input-group.time-select
 									div.input-group-addon="с"
-									input.form-control.time.start(type="text", name="since")
+									input.form-control.time.start(type="text", name="since", ng-model="form.since", required)
 									div.input-group-addon="до"
-									input.form-control.time.end(type="text", name="till")
+									input.form-control.time.end(type="text", name="till", ng-model="form.till", required)
 							div.form-group.col-md-6
 								label.control-label="Задача:"
 								select.form-control(name="task")
 									option(selected)="Не указано"
-						button.btn.btn-primary.pull-right(type="submit")="Отметить время"
+						button.btn.btn-primary.pull-right(ng-disabled="addPostForm.$invalid", ng-click="addPost()")="Отметить время"
 						div.clearfix
 			div.tasks.aside.col-sm-3.hidden-xs
 				h2="Задачи"
