@@ -140,6 +140,17 @@ app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $r
 		});
 	}
 
+	$('.time-select .time').timepicker({
+		showDuration: true,
+		timeFormat: 'H:i',
+		lang: {
+			mins: 'м',
+			hr: 'ч',
+			hrs: 'ч'
+		}
+	});
+	$('.time-select').datepair();
+
 }]);
 
 app.filter('moment', function() {
@@ -189,17 +200,6 @@ app.controller('login', ['$scope', '$rootScope', function($scope, $rootScope) {
 $(function() {
 
 	moment.locale('ru');
-
-	$('.time-select .time').timepicker({
-		showDuration: true,
-		timeFormat: 'H:i',
-		lang: {
-			mins: 'м',
-			hr: 'ч',
-			hrs: 'ч'
-		}
-	});
-	$('.time-select').datepair();
 
 	window.reportsAutosize = function(scrollBottom) {
 		var windowHeight = $(window).height();
