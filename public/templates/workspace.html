@@ -7,7 +7,7 @@
 	</div>
 	<div class="main col-sm-9">
 		<div class="reports">
-			<div ng-repeat="post in posts" class="item">
+			<div ng-repeat="post in posts" class="item" ng-class="printPostClasses(post)">
 				<p class="time"><span class="glyphicon glyphicon-time"></span> <span class="interval">{{post.start.dateTime | date : 'H:mm'}} — {{post.end.dateTime | date : 'H:mm'}} ({{displayDuration(post.start.dateTime, post.end.dateTime)}})</span>
 				</p>
 				<p class="text">{{post.summary}}</p>
@@ -52,10 +52,5 @@
 				<input type="checkbox" ng-checked="(task.status == 'completed')"> {{task.title}}
 			</label>
 		</div>
-	</div>
-	<div class="statistic aside col-sm-3 hidden-xs">
-		<h2>Итого</h2>
-		<p>Сделать Yantema — <span class="time">1 ч 20 м</span>
-		</p>
 	</div>
 </div>

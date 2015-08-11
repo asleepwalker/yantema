@@ -96,6 +96,9 @@ app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $r
 				timeZone: 'Europe/Kiev'
 			}
 		};
+		if ($scope.form.task) {
+			event.description = 'task:' + $scope.form.task.id;
+		}
 
 		var request = gapi.client.calendar.events.insert({
 			calendarId: 'primary',
@@ -119,6 +122,10 @@ app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $r
 		});
 	};
 
+	$scope.printPostClasses = function(post) {
+		return /task:/.test(post.description) ? ['useful'] : null;
+	};
+
 	$scope.displayDuration = function(since, till) {
 		var duration = calculateDuration(since, till);
 		return duration.humanize().replace(/ ([a-zа-я])[a-zа-я]+$/i, ' $1');
@@ -140,20 +147,17 @@ app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $r
 	}
 
 	if (typeof gapi.auth == 'undefined') {
-		console.log('api undefined');
 		$scope.$watch($rootScope.apiLoaded, function() {
-			console.log('api ready');
 			$timeout(authorize);
 		});
 	} else {
-		console.log('api loaded');
-		$timeout(authorize);
+		$timeout(authorize, 1000);
 	}
 
 	function authorize() {
 		gapi.auth.authorize({
 			//jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-			client_id: CLIENT_ID, //jscs:ignore requireCamelCaseOrUpperCaseIdentifiers
+			client_id: CLIENT_ID,
 			scope: SCOPES,
 			immediate: true
 			//jscs:enable requireCamelCaseOrUpperCaseIdentifiers
