@@ -27,6 +27,7 @@ function onApiClientReady() {
 app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $rootScope, $timeout) {
 
 	$scope.posts = [];
+	$scope.tasks = [];
 	$scope.form = {};
 	$scope.dayFullness = 0;
 
@@ -51,6 +52,31 @@ app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $r
 			$timeout(function() {
 				reportsAutosize(true);
 			});
+		});
+	};
+
+	$scope.loadTasks = function() {
+		var request = gapi.client.tasks.tasks.list({
+			tasklist: '@default'
+		});
+
+		request.execute(function(response) {
+			$scope.tasks = response.items;
+			$scope.$apply();
+		});
+	};
+
+	$scope.checkTask = function(task) {
+		var request = gapi.client.tasks.tasks.update({
+			task: task.id,
+			tasklist: '@default',
+			id: task.id,
+			status: task.status == 'completed' ? 'needsAction' : 'completed'
+		});
+
+		request.execute(function(response) {
+			task = response;
+			$scope.$apply();
 		});
 	};
 
@@ -114,11 +140,14 @@ app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $r
 	}
 
 	if (typeof gapi.auth == 'undefined') {
+		console.log('api undefined');
 		$scope.$watch($rootScope.apiLoaded, function() {
+			console.log('api ready');
 			$timeout(authorize);
 		});
 	} else {
-		authorize();
+		console.log('api loaded');
+		$timeout(authorize);
 	}
 
 	function authorize() {
@@ -133,6 +162,9 @@ app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $r
 				gapi.client.load('calendar', 'v3', function() {
 					var today = moment().set('hour', 0).set('minute', 0).set('second', 0);
 					$scope.loadDay(today);
+				});
+				gapi.client.load('tasks', 'v1', function() {
+					$scope.loadTasks();
 				});
 			} else {
 				window.location.href = '/login';

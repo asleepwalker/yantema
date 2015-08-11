@@ -35,8 +35,8 @@
 					</div>
 					<div class="form-group col-md-6">
 						<label class="control-label">Задача:</label>
-						<select name="task" class="form-control">
-							<option selected>Не указано</option>
+						<select name="task" class="form-control" ng-model="form.task" ng-options="task.title for task in tasks">
+							<option value="" selected>Не указано</option>
 						</select>
 					</div>
 				</div>
@@ -47,9 +47,9 @@
 	</div>
 	<div class="tasks aside col-sm-3 hidden-xs">
 		<h2>Задачи</h2>
-		<div class="checkbox">
-			<label>
-				<input type="checkbox"> Сделать Yantema
+		<div ng-repeat="task in tasks" class="checkbox">
+			<label ng-click="checkTask(task)">
+				<input type="checkbox" ng-checked="(task.status == 'completed')"> {{task.title}}
 			</label>
 		</div>
 	</div>
