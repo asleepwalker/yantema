@@ -39,7 +39,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default', ['lint', 'build']);
 	grunt.registerTask('lint', ['jshint', 'jscs']);
-	grunt.registerTask('build', ['copy']);
+	grunt.registerTask('build', ['clean', 'copy']);
 	grunt.registerTask('deploy', ['sftp']);
 
 };

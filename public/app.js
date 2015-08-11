@@ -1,33 +1,25 @@
+var app = angular.module('yantema', ['ngRoute']);
+
+app.config(function($routeProvider, $locationProvider) {
+	$routeProvider
+		.when('/', {
+			templateUrl: 'templates/workspace.html',
+			controller: 'posts'
+		})
+		.when('/login', {
+			templateUrl: 'templates/login.html',
+			controller: 'login'
+		})
+		.otherwise({
+			redirectTo: '/'
+		});
+
+	$locationProvider.html5Mode(true);
+});
+
 var CLIENT_ID = '728048305195-eb68s05cjabi4o0jlda7ve3jlnv3snqd.apps.googleusercontent.com';
 var SCOPES = ['https://www.googleapis.com/auth/calendar', 'https://www.googleapis.com/auth/tasks'];
-var app = angular.module('yantema', []);
-
-//jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-function checkAuth() {
-	gapi.auth.authorize({
-		client_id: CLIENT_ID,
-		scope: SCOPES,
-		immediate: true
-	}, handleAuthResult);
-}
-//jscs:enable requireCamelCaseOrUpperCaseIdentifiers
-
-function handleAuthResult(authResult) {
-	if (authResult && !authResult.error) {
-		loadCalendarApi();
-	} else {
-		window.location.href = '/login';
-	}
-}
-
-function loadCalendarApi() {
-	gapi.client.load('calendar', 'v3', bootstrapApp);
-	//gapi.client.load('tasks', 'v3', loadTasks);
-}
-
-function bootstrapApp() {
-	angular.bootstrap(document, ['yantema']);
-}
+function onApiClientReady = function() { console.log('empty listener'); };
 
 app.controller('posts', ['$scope', '$timeout', function($scope, $timeout) {
 
@@ -82,9 +74,8 @@ app.controller('posts', ['$scope', '$timeout', function($scope, $timeout) {
 		});
 
 		request.execute(function(event) {
-			$scope.loadDay($scope.day);
 			$scope.form = {};
-			$scope.$apply();
+			$scope.loadDay($scope.day);
 		});
 	};
 
@@ -108,20 +99,78 @@ app.controller('posts', ['$scope', '$timeout', function($scope, $timeout) {
 		return moment.duration(end.diff(start));
 	}
 
-	$scope.loadDay(moment().set('hour', 0).set('minute', 0).set('second', 0));
+	if (typeof gapi.auth == 'undefined') {
+		onApiClientReady = authorize;
+	} else {
+		authorize();
+	}
+
+	function authorize() {
+		gapi.auth.authorize({
+			//jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+			client_id: CLIENT_ID, //jscs:ignore requireCamelCaseOrUpperCaseIdentifiers
+			scope: SCOPES,
+			immediate: true
+			//jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+		}, function handleAuthResult(authResult) {
+			if (authResult && !authResult.error) {
+				gapi.client.load('calendar', 'v3', function() {
+					var today = moment().set('hour', 0).set('minute', 0).set('second', 0);
+					$scope.loadDay(today);
+					$scope.apply();
+				});
+			} else {
+				window.location.href = '/login';
+			}
+		});
+	}
 
 }]);
 
 app.filter('moment', function() {
 	return function(input, format) {
-		return input.format(format);
+		return input ? input.format(format) : format;
 	};
 });
 
 app.filter('capitalizeFirstLetter', function() {
 	return function(input) {
-		return input.charAt(0).toUpperCase() + input.slice(1);
+		return input ? input.charAt(0).toUpperCase() + input.slice(1) : '';
 	};
+});
+
+app.controller('login', function($scope) {
+
+	$scope.apiClientReady = false;
+	$scope.authFailed = false;
+
+	if (typeof gapi.auth == 'undefined') {
+		window.onApiClientReady = function() {
+			console.log('login listener');
+			$scope.apiClientReady = true;
+			$scope.apply();
+		};
+	} else {
+		$scope.apiClientReady = true;
+	}
+
+	$scope.handleAuthClick = function(event) {
+		gapi.auth.authorize({
+			//jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+			client_id: CLIENT_ID,
+			scope: SCOPES,
+			immediate: false
+			//jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+		}, function(authResult) {
+			if (authResult && !authResult.error) {
+				window.location.href = '/';
+			} else {
+				$('.login-fail').show();
+			}
+		});
+		return false;
+	};
+
 });
 
 $(function() {

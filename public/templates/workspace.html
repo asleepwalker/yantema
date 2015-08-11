@@ -1,0 +1,57 @@
+<button ng-click="loadDay(day.subtract(1, 'days'))" class="prev-day glyphicon glyphicon-menu-left hidden-xs"></button>
+<button ng-click="loadDay(day.add(1, 'days'))" class="next-day glyphicon glyphicon-menu-right hidden-xs"></button>
+<div class="container">
+	<h1>{{day | moment : 'dddd, D MMMM YYYY' | capitalizeFirstLetter }}</h1>
+	<div class="progress progress-striped">
+		<div style="width: {{dayFullness}}%;" class="progress-bar"></div>
+	</div>
+	<div class="main col-sm-9">
+		<div class="reports">
+			<div ng-repeat="post in posts" class="item">
+				<p class="time"><span class="glyphicon glyphicon-time"></span> <span class="interval">{{post.start.dateTime | date : 'H:mm'}} — {{post.end.dateTime | date : 'H:mm'}} ({{displayDuration(post.start.dateTime, post.end.dateTime)}})</span>
+				</p>
+				<p class="text">{{post.summary}}</p>
+			</div>
+			<div ng-show="posts.length == 0" ng-cloak role="alert" class="alert alert-info"><b>Время не отмечено!</b> Укажите, чем вы занимались сегодня.
+			</div>
+			<form name="addPostForm" ng-submit="addPostForm.$valid" class="add-report">
+				<div class="form-group">
+					<label class="control-label">Процесс:</label>
+					<input type="text" name="text" ng-model="form.summary" required class="form-control">
+				</div>
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label class="control-label">Время:</label>
+						<div class="input-group time-select">
+							<div class="input-group-addon">с</div>
+							<input type="text" name="since" ng-model="form.since" required class="form-control time start">
+							<div class="input-group-addon">до</div>
+							<input type="text" name="till" ng-model="form.till" required class="form-control time end">
+						</div>
+					</div>
+					<div class="form-group col-md-6">
+						<label class="control-label">Задача:</label>
+						<select name="task" class="form-control">
+							<option selected>Не указано</option>
+						</select>
+					</div>
+				</div>
+				<button ng-disabled="addPostForm.$invalid" ng-click="addPost()" class="btn btn-primary pull-right">Отметить время</button>
+				<div class="clearfix"></div>
+			</form>
+		</div>
+	</div>
+	<div class="tasks aside col-sm-3 hidden-xs">
+		<h2>Задачи</h2>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox"> Сделать Yantema
+			</label>
+		</div>
+	</div>
+	<div class="statistic aside col-sm-3 hidden-xs">
+		<h2>Итого</h2>
+		<p>Сделать Yantema — <span class="time">1 ч 20 м</span>
+		</p>
+	</div>
+</div>
