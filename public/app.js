@@ -146,12 +146,12 @@ app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $r
 		return moment.duration(end.diff(start));
 	}
 
-	if (typeof gapi.auth == 'undefined') {
+	if (!$rootScope.apiLoaded) {
 		$scope.$watch($rootScope.apiLoaded, function() {
 			$timeout(authorize);
 		});
 	} else {
-		$timeout(authorize, 1000);
+		authorize();
 	}
 
 	function authorize() {
@@ -206,7 +206,7 @@ app.controller('login', ['$scope', '$rootScope', function($scope, $rootScope) {
 	$scope.apiClientReady = false;
 	$scope.authFailed = false;
 
-	if (typeof gapi.auth == 'undefined') {
+	if (!$rootScope.apiLoaded) {
 		$scope.$watch($rootScope.apiLoaded, function() {
 			$scope.apiClientReady = true;
 		});
