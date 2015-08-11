@@ -19,7 +19,6 @@ app.config(function($routeProvider, $locationProvider) {
 
 var CLIENT_ID = '728048305195-eb68s05cjabi4o0jlda7ve3jlnv3snqd.apps.googleusercontent.com';
 var SCOPES = ['https://www.googleapis.com/auth/calendar', 'https://www.googleapis.com/auth/tasks'];
-function onApiClientReady = function() { console.log('empty listener'); };
 
 app.controller('posts', ['$scope', '$timeout', function($scope, $timeout) {
 
@@ -79,6 +78,17 @@ app.controller('posts', ['$scope', '$timeout', function($scope, $timeout) {
 		});
 	};
 
+	$scope.removePost = function(post) {
+		var request = gapi.client.calendar.events.delete({
+			calendarId: 'primary',
+			eventId: post.id
+		});
+
+		request.execute(function(event) {
+			$scope.loadDay($scope.day);
+		});
+	};
+
 	$scope.displayDuration = function(since, till) {
 		var duration = calculateDuration(since, till);
 		return duration.humanize().replace(/ ([a-zа-я])[a-zа-я]+$/i, ' $1');
@@ -117,7 +127,6 @@ app.controller('posts', ['$scope', '$timeout', function($scope, $timeout) {
 				gapi.client.load('calendar', 'v3', function() {
 					var today = moment().set('hour', 0).set('minute', 0).set('second', 0);
 					$scope.loadDay(today);
-					$scope.apply();
 				});
 			} else {
 				window.location.href = '/login';
@@ -145,12 +154,16 @@ app.controller('login', function($scope) {
 	$scope.authFailed = false;
 
 	if (typeof gapi.auth == 'undefined') {
+		console.log('no auth');
+		console.log(window.onApiClientReady);
 		window.onApiClientReady = function() {
 			console.log('login listener');
 			$scope.apiClientReady = true;
 			$scope.apply();
 		};
+		console.log(window.onApiClientReady);
 	} else {
+		console.log('auth ready');
 		$scope.apiClientReady = true;
 	}
 

@@ -26,6 +26,7 @@ BODY {
 	border: 1px solid #eee;
 	border-left-width: 5px;
 	border-radius: 3px;
+	position: relative;
 }
 .reports .item.useful {
 	border-left-color: #1b809e;
@@ -51,6 +52,31 @@ BODY {
 .reports .item .task .name {
 	font-weight: bold;
 }
+.reports .item .actions {
+	opacity: 0;
+	transition: 0.2s;
+	position: absolute;
+	right: 20px;
+	bottom: 10px;
+	font-size: 90%;
+}
+.reports .item:hover .actions {
+	opacity: 1;
+}
+.reports .item .actions span.pseudo {
+	cursor: pointer;
+	border-bottom: 1px dashed;
+	margin-left: 5px;
+}
+.reports .item .actions .pseudo.edit {
+	color: #1D5684;
+	border-bottom-color: #64A5CA;
+}
+.reports .item .actions .pseudo.remove {
+	border-bottom-color: #FFA1A1;
+	color: #CA0000;
+}
+
 .reports .alert {
 	margin-bottom: 0;
 }

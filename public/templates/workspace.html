@@ -11,6 +11,10 @@
 				<p class="time"><span class="glyphicon glyphicon-time"></span> <span class="interval">{{post.start.dateTime | date : 'H:mm'}} — {{post.end.dateTime | date : 'H:mm'}} ({{displayDuration(post.start.dateTime, post.end.dateTime)}})</span>
 				</p>
 				<p class="text">{{post.summary}}</p>
+				<div class="actions">
+					<!--<span class="pseudo edit" ng-click="editPost(post)">Редактировать</span>-->
+					<span class="pseudo remove" ng-click="removePost(post)">Удалить</span>
+				</div>
 			</div>
 			<div ng-show="posts.length == 0" ng-cloak role="alert" class="alert alert-info"><b>Время не отмечено!</b> Укажите, чем вы занимались сегодня.
 			</div>
