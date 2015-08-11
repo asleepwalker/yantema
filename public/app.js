@@ -20,7 +20,11 @@ app.config(function($routeProvider, $locationProvider) {
 var CLIENT_ID = '728048305195-eb68s05cjabi4o0jlda7ve3jlnv3snqd.apps.googleusercontent.com';
 var SCOPES = ['https://www.googleapis.com/auth/calendar', 'https://www.googleapis.com/auth/tasks'];
 
-app.controller('posts', ['$scope', '$timeout', function($scope, $timeout) {
+function onApiClientReady() {
+	app.value('apiLoaded', true);
+}
+
+app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $rootScope, $timeout) {
 
 	$scope.posts = [];
 	$scope.form = {};
@@ -110,7 +114,9 @@ app.controller('posts', ['$scope', '$timeout', function($scope, $timeout) {
 	}
 
 	if (typeof gapi.auth == 'undefined') {
-		onApiClientReady = authorize;
+		$scope.$watch($rootScope.apiLoaded, function() {
+			$timeout(authorize);
+		});
 	} else {
 		authorize();
 	}
@@ -148,22 +154,16 @@ app.filter('capitalizeFirstLetter', function() {
 	};
 });
 
-app.controller('login', function($scope) {
+app.controller('login', ['$scope', '$rootScope', function($scope, $rootScope) {
 
 	$scope.apiClientReady = false;
 	$scope.authFailed = false;
 
 	if (typeof gapi.auth == 'undefined') {
-		console.log('no auth');
-		console.log(window.onApiClientReady);
-		window.onApiClientReady = function() {
-			console.log('login listener');
+		$scope.$watch($rootScope.apiLoaded, function() {
 			$scope.apiClientReady = true;
-			$scope.apply();
-		};
-		console.log(window.onApiClientReady);
+		});
 	} else {
-		console.log('auth ready');
 		$scope.apiClientReady = true;
 	}
 
@@ -184,7 +184,7 @@ app.controller('login', function($scope) {
 		return false;
 	};
 
-});
+}]);
 
 $(function() {
 
