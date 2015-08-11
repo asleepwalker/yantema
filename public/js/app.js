@@ -40,12 +40,12 @@ app.controller('posts', ['$scope', '$timeout', function($scope, $timeout) {
 		var tomorrow = moment(day).add(1, 'days');
 
 		var request = gapi.client.calendar.events.list({
-			'calendarId': 'primary',
-			'timeMin': day.format(),
-			'timeMax': tomorrow.format(),
-			'showDeleted': false,
-			'singleEvents': true,
-			'orderBy': 'startTime'
+			calendarId: 'primary',
+			timeMin: day.format(),
+			timeMax: tomorrow.format(),
+			showDeleted: false,
+			singleEvents: true,
+			orderBy: 'startTime'
 		});
 
 		request.execute(function(response) {
@@ -65,20 +65,20 @@ app.controller('posts', ['$scope', '$timeout', function($scope, $timeout) {
 		var end = $scope.form.till.split(':');
 
 		var event = {
-			'summary': $scope.form.summary,
-			'start': {
-				'dateTime': day.set('hour', start[0]).set('minute', start[1]).format(),
-				'timeZone': 'Europe/Kiev'
+			summary: $scope.form.summary,
+			start: {
+				dateTime: day.set('hour', start[0]).set('minute', start[1]).format(),
+				timeZone: 'Europe/Kiev'
 			},
-			'end': {
-				'dateTime': day.set('hour', end[0]).set('minute', end[1]).format(),
-				'timeZone': 'Europe/Kiev'
+			end: {
+				dateTime: day.set('hour', end[0]).set('minute', end[1]).format(),
+				timeZone: 'Europe/Kiev'
 			}
 		};
 
 		var request = gapi.client.calendar.events.insert({
-			'calendarId': 'primary',
-			'resource': event
+			calendarId: 'primary',
+			resource: event
 		});
 
 		request.execute(function(event) {
@@ -100,7 +100,7 @@ app.controller('posts', ['$scope', '$timeout', function($scope, $timeout) {
 			totalDuration.add(postDuration);
 		});
 		return (totalDuration.asMinutes() / 1440) * 100;
-	};
+	}
 
 	function calculateDuration(since, till) {
 		var start = moment(since);
@@ -159,7 +159,6 @@ $(function() {
 		}
 	};
 
-	reportsAutosize(true);
 	$(window).resize(reportsAutosize);
 
 });

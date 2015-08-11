@@ -6,18 +6,16 @@ module.exports = function(grunt) {
 		},
 		copy: {
 			app: {
-				src: ['{bin,models,routes,views}/**/*', 'app.js', 'package.json'],
+				expand: true,
+				cwd: 'public/',
+				src: '**/*',
 				dest: 'dist/'
 			},
 			assets: {
 				expand: true,
 				cwd: 'bower_components/',
 				src: '**/*',
-				dest: 'dist/public/assets/'
-			},
-			public: {
-				src: 'public/**/*',
-				dest: 'dist/'
+				dest: 'dist/assets/'
 			}
 		},
 		jshint: {
@@ -39,13 +37,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-jscs');
 
+	grunt.registerTask('default', ['lint', 'build']);
 	grunt.registerTask('lint', ['jshint', 'jscs']);
-	grunt.registerTask('assets', ['copy:assets']);
-	grunt.registerTask('public', ['copy:public', 'assets']);//, 'sprite', 'sass', 'uglify', 'concat']);
-	grunt.registerTask('dist', ['public', 'copy:app']);
-	grunt.registerTask('build', ['lint', 'dist']);
-	grunt.registerTask('test', ['mocha']);
+	grunt.registerTask('build', ['copy']);
 	grunt.registerTask('deploy', ['sftp']);
-	grunt.registerTask('default', ['build', 'test']);
 
 };

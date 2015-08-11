@@ -18,16 +18,8 @@
     "url": "https://github.com/asleepwalker/yantema/issues"
   },
   "scripts": {
-    "start": "node bin/server.js",
     "deploy": "grunt deploy",
-    "test": "mocha tests/"
-  },
-  "dependencies": {
-    "express": "~4.11.2",
-    "jade": "~1.11.0",
-    "body-parser": "~1.10.2",
-    "cookie-parser": "~1.3.5",
-    "serve-favicon": "~2.2.1"
+    "test": "grunt lint"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
@@ -37,9 +29,6 @@
     "grunt-jscs": "~1.2.0",
     "grunt-sass": "~0.17.0",
     "grunt-ssh": "~0.12.0",
-    "mocha": "~2.2.1",
-    "grunt-mocha-test": "~0.12.7",
-    "grunt-contrib-clean": "~0.6.0",
-    "morgan": "~1.6.1"
+    "grunt-contrib-clean": "~0.6.0"
   }
 }
