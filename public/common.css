@@ -97,8 +97,18 @@ BODY {
 	font-size: 20px;
 	margin: 10px 0 15px;
 }
-.statistic .time {
-	font-weight: bold;
+.tasks .checkbox.subtask {
+	padding-left: 15px;
+	font-size: 95%;
+}
+.tasks .checkbox.subtask:not(.ng-hide) + .checkbox.top {
+	margin-top: 4px;
+}
+.tasks .checkbox button.open {
+	background: transparent;
+	font-size: 11px;
+	margin-left: 3px;
+	color: black;
 }
 
 .prev-day, .next-day {

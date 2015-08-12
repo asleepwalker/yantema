@@ -80,6 +80,17 @@ app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $r
 		});
 	};
 
+	$scope.isBigTask = function(task) {
+		var bigTask = false;
+		angular.forEach($scope.tasks, function(item) {
+			if (task.id == item.parent) {
+				bigTask = true;
+				return false;
+			}
+		});
+		return bigTask;
+	};
+
 	$scope.addPost = function() {
 		var day = moment($scope.day);
 		var start = $scope.form.since.split(':');

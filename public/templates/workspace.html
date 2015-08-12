@@ -47,10 +47,11 @@
 	</div>
 	<div class="tasks aside col-sm-3 hidden-xs">
 		<h2>Задачи</h2>
-		<div ng-repeat="task in tasks" class="checkbox">
+		<div ng-repeat="task in tasks" class="checkbox" ng-class="[ task.parent ? 'subtask' : 'top' ]" ng-show="(!task.parent || task.parent == $parent.openedTask)">
 			<label ng-click="checkTask(task)">
 				<input type="checkbox" ng-checked="(task.status == 'completed')"> {{task.title}}
 			</label>
+			<button class="glyphicon glyphicon-chevron-down open" ng-show="isBigTask(task)" ng-click="$parent.openedTask = ($parent.openedTask != task.id ? task.id : null)"></button>
 		</div>
 	</div>
 </div>
