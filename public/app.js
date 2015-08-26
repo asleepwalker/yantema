@@ -61,6 +61,10 @@ app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $r
 		});
 
 		request.execute(function(response) {
+			angular.forEach(response.items, function(value, key) {
+				value.hierarchy = (typeof value.parent == 'undefined') ? 'top' : 'subtask';
+				response.items[key] = value;
+			});
 			$scope.tasks = response.items;
 			$scope.$apply();
 		});
