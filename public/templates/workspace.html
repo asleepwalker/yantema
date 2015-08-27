@@ -1,10 +1,12 @@
-<button ng-click="loadDay(day.subtract(1, 'days'))" class="prev-day glyphicon glyphicon-menu-left hidden-xs"></button>
-<button ng-click="loadDay(day.add(1, 'days'))" class="next-day glyphicon glyphicon-menu-right hidden-xs"></button>
+<button ng-click="loadDay(day.subtract(1, 'days'))" class="prev-day glyphicon glyphicon-menu-left"></button>
+<button ng-click="loadDay(day.add(1, 'days'))" class="next-day glyphicon glyphicon-menu-right"></button>
 <div class="container">
-	<h1>{{day | moment : 'dddd, D MMMM YYYY' | capitalizeFirstLetter }}</h1>
-	<div class="progress progress-striped">
-		<div style="width: {{dayFullness}}%;" class="progress-bar"></div>
-	</div>
+	<header>
+		<h1>{{day | moment : 'dddd, D MMMM YYYY' | capitalizeFirstLetter }}</h1>
+		<div class="progress progress-striped">
+			<div style="width: {{dayFullness}}%;" class="progress-bar"></div>
+		</div>
+	</header>
 	<div class="main col-sm-9">
 		<div class="reports">
 			<div ng-repeat="post in posts" class="item" ng-class="printPostClasses(post)">
