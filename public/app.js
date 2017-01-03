@@ -1,3 +1,9 @@
+/*
+*	Yantema, v0.0.1
+*	(c) 2014–2017 Artyom "Sleepwalker" Fedosov <mail@asleepwalker.ru>
+*	https://github.com/asleepwalker/jquery-ui.autocomplete.match.js
+*/
+
 var app = angular.module('yantema', ['ngRoute']);
 
 app.config(function($routeProvider, $locationProvider) {
