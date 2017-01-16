@@ -4,22 +4,28 @@
 	outline: 0 !important;
 	padding: 0;
 }
-HTML {
+
+html {
 	position: relative;
 }
-BODY {
+
+body {
 	padding-top: 20px;
 }
+
 
 .main {
 	padding-left: 0;
 }
+
 .reports {
 	overflow: auto;
 }
+
 .reports.has-scroll {
 	padding-right: 10px;
 }
+
 .reports .item {
 	padding: 20px;
 	margin: 20px 0;
@@ -28,30 +34,38 @@ BODY {
 	border-radius: 3px;
 	position: relative;
 }
+
 .reports .item.useful {
 	border-left-color: #1b809e;
 }
+
 .reports .item.editing {
 	box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.2);
 	border-color: #007EC8;
 }
+
 .reports .item:first-child {
 	margin-top: 0;
 }
+
 .reports .item:last-child {
 	margin-bottom: 0;
 }
+
 .reports .item .time .total {
 	color: #666;
 }
+
 .reports .item .task {
 	font-size: 12px;
 	margin: 20px 0 5px;
 }
+
 .reports .item .time .interval,
 .reports .item .task .name {
 	font-weight: bold;
 }
+
 .reports .item .actions {
 	opacity: 0;
 	transition: 0.2s;
@@ -60,50 +74,62 @@ BODY {
 	bottom: 10px;
 	font-size: 90%;
 }
+
 .reports .item:hover .actions {
 	opacity: 1;
 }
+
 .reports .item .actions span.pseudo {
 	cursor: pointer;
 	border-bottom: 1px dashed;
 	margin-left: 5px;
 }
+
 .reports .item .actions .pseudo.edit {
 	color: #1D5684;
 	border-bottom-color: #64A5CA;
 }
+
 .reports .item .actions .pseudo.remove {
 	border-bottom-color: #FFA1A1;
 	color: #CA0000;
 }
 
+
 .reports .alert {
 	margin-bottom: 0;
 }
+
 .add-report {
 	background: #f8f8f8;
 	margin: 20px 0 30px;
 	padding: 15px 20px;
 }
 
+
 .aside {
 	background: #f8f8f8;
 	margin-top: 20px;
 }
+
 .tasks.aside {
 	margin-top: 0;
 }
-.aside H2 {
+
+.aside h2 {
 	font-size: 20px;
 	margin: 10px 0 15px;
 }
+
 .tasks .checkbox.subtask {
 	padding-left: 15px;
 	font-size: 95%;
 }
+
 .tasks .checkbox.subtask:not(.ng-hide) + .checkbox.top {
 	margin-top: 4px;
 }
+
 .tasks .checkbox button.open {
 	background: transparent;
 	font-size: 11px;
@@ -111,7 +137,9 @@ BODY {
 	color: black;
 }
 
-.prev-day, .next-day {
+
+.prev-day,
+.next-day {
 	background: transparent;
 	color: #204C59;
 	font-size: 40px;
@@ -121,47 +149,61 @@ BODY {
 	top: 50%;
 	width: 40px;
 }
-.prev-day:hover, .next-day:hover {
+
+.prev-day:hover,
+.next-day:hover {
 	color: #3D8FA7;
 }
+
 .prev-day {
 	left: 20px;
 }
+
 .next-day {
 	right: 20px;
 }
 
+
 .btn.login {
 	margin-top: 8px;
 }
+
 .login-fail {
 	margin-top: 15px;
 	padding: 10px 15px;
 }
 
+
 @media screen and (max-width: 767px) {
-	BODY {
+	body {
 		padding-top: 5px;
 	}
-	HEADER {
+
+	header {
 		padding: 0 20px;
 	}
-	H1 {
+
+	h1 {
 		font-size: 24px;
 	}
+
 	.main {
 		padding-right: 0;
 	}
 }
 
+
 @media screen and (max-width: 1275px) {
-	.prev-day, .next-day {
+	.prev-day,
+	.next-day {
 		font-size: 30px;
 		top: 60px;
 	}
+
 	.prev-day {
 		left: -5px;
 	}
+
 	.next-day {
 		right: -5px;
 	}
