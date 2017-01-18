@@ -408,3 +408,21 @@ body {
 		-moz-transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
 	}
 }
+
+.add-report div.awesomplete {
+	display: block;
+}
+
+.add-report div.awesomplete > ul {
+	transition: none;
+	z-index: 100;
+}
+
+.add-report div.awesomplete mark {
+	background: #DBE7FF;
+	padding: 0;
+}
+
+.add-report div.awesomplete li:hover mark {
+	background: #A0C0FF;
+}

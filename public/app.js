@@ -76,6 +76,7 @@ app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $r
 				response.items[key] = value;
 			});
 			$scope.tasks = response.items;
+			initAwesomplete(response.items);
 			$scope.workspace.tasks = true;
 			$scope.$apply();
 		});
@@ -213,6 +214,20 @@ app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $r
 		}
 	});
 	$('.time-select').datepair();
+
+	function initAwesomplete(tasks) {
+		new Awesomplete('.add-report input.process', {
+			list: tasks.map(function(task) {
+				return task.title;
+			}),
+			filter: Awesomplete.FILTER_STARTSWITH,
+			minChars: 1,
+			maxItems: 6
+		});
+		$('.add-report input.process').on('awesomplete-selectcomplete', function() {
+			$(this).trigger('change');
+		});
+	}
 }]);
 
 app.filter('moment', function() {
