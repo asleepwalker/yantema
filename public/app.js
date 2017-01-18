@@ -1,9 +1,3 @@
-/*
-*	Yantema, v0.0.1
-*	(c) 2014–2017 Artyom "Sleepwalker" Fedosov <mail@asleepwalker.ru>
-*	https://github.com/asleepwalker/jquery-ui.autocomplete.match.js
-*/
-
 var app = angular.module('yantema', ['ngRoute']);
 
 app.config(function($routeProvider, $locationProvider) {
@@ -31,11 +25,20 @@ function onApiClientReady() {
 }
 
 app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $rootScope, $timeout) {
-
 	$scope.posts = [];
 	$scope.tasks = [];
 	$scope.form = {};
 	$scope.dayFullness = 0;
+
+	$scope.workspace = {
+		login: false,
+		posts: false,
+		tasks: false
+	};
+
+	$scope.$watch('workspace', function(ws) {
+		$rootScope.workspaceReady = ws.login && ws.posts && ws.tasks;
+	}, true);
 
 	$scope.loadDay = function(day) {
 		$scope.day = day;
@@ -52,6 +55,7 @@ app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $r
 
 		request.execute(function(response) {
 			$scope.posts = response.items;
+			$scope.workspace.posts = true;
 			$scope.dayFullness = getDayFullness();
 			$scope.$apply();
 
@@ -72,6 +76,7 @@ app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $r
 				response.items[key] = value;
 			});
 			$scope.tasks = response.items;
+			$scope.workspace.tasks = true;
 			$scope.$apply();
 		});
 	};
@@ -184,6 +189,7 @@ app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $r
 			//jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 		}, function handleAuthResult(authResult) {
 			if (authResult && !authResult.error) {
+				$scope.workspace.login = true;
 				gapi.client.load('calendar', 'v3', function() {
 					var today = moment().set('hour', 0).set('minute', 0).set('second', 0);
 					$scope.loadDay(today);
@@ -207,7 +213,6 @@ app.controller('posts', ['$scope', '$rootScope', '$timeout', function($scope, $r
 		}
 	});
 	$('.time-select').datepair();
-
 }]);
 
 app.filter('moment', function() {
@@ -223,16 +228,13 @@ app.filter('capitalizeFirstLetter', function() {
 });
 
 app.controller('login', ['$scope', '$rootScope', function($scope, $rootScope) {
-
 	$scope.apiClientReady = false;
 	$scope.authFailed = false;
 
 	if (!$rootScope.apiLoaded) {
-		$scope.$watch($rootScope.apiLoaded, function() {
-			$scope.apiClientReady = true;
-		});
+		$scope.$watch($rootScope.apiLoaded, bootstrapLogin);
 	} else {
-		$scope.apiClientReady = true;
+		bootstrapLogin();
 	}
 
 	$scope.handleAuthClick = function(event) {
@@ -252,10 +254,13 @@ app.controller('login', ['$scope', '$rootScope', function($scope, $rootScope) {
 		return false;
 	};
 
+	function bootstrapLogin() {
+		$scope.apiClientReady = true;
+		$rootScope.workspaceReady = true;
+	}
 }]);
 
 $(function() {
-
 	moment.locale('ru');
 
 	window.reportsAutosize = function(scrollBottom) {
@@ -279,5 +284,4 @@ $(function() {
 	};
 
 	$(window).resize(reportsAutosize);
-
 });
